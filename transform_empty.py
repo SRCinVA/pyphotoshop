@@ -10,13 +10,22 @@ Github: https://www.github.com/kying18
 Programmer Beast Mode Spotify playlist: https://open.spotify.com/playlist/4Akns5EUb3gzmlXIdsJkPs?si=qGc4ubKRRYmPHAJAIrCxVQ 
 """
 
-from image import Image
+from image import Image # 'image' is from another file not included in this Githyb repository
 import numpy as np
 
 def brighten(image, factor):
     # when we brighten, we just want to make each channel higher by some amount 
     # factor is a value > 0, how much you want to brighten the image by (< 1 = darken, > 1 = brighten)
-    pass
+    # pass
+
+    # we need to iterate through each pixel, which carries 3-d info: x position, y position, and color (RGB channels)
+    # to that, we first need to see how big the image is ...
+
+    x_pixels, y_pixels, num_channels = image.array.shape  # note: we would be invoking self.array for the stored image
+    # need to make a new image so that we don't mutate the one we're passing in
+    # ??? Why would that happen in the first place? Maybe we do that just as a matter of good practice?
+    new_im = Image(x_pixels=x_pixels,y_pixels=y_pixels,num_channels=num_channels)
+
 
 def adjust_contrast(image, factor, mid):
     # adjust the contrast by increasing the difference from the user-defined midpoint by factor amount
