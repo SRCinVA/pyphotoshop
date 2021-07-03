@@ -25,7 +25,17 @@ def brighten(image, factor):
     # need to make a new image so that we don't mutate the one we're passing in
     # ??? Why would that happen in the first place? Maybe we do that just as a matter of good practice?
     new_im = Image(x_pixels=x_pixels,y_pixels=y_pixels,num_channels=num_channels)
+        # to be perfectly clear--now we just mutate the new image, not the old one. 
 
+    # here's the non-vectorized way to do this: a 3D for-loop each pixel at its x, its y, and its color:
+    for x in range(x_pixels):
+        for y in range (y_pixels):
+            for c in range(num_channels):
+                # at index x,y,c in the image new array, we're going to "mirror" the first image, times "factor"
+                # to adjust for brightness:
+                new_im.array[x,y,c] = image.array[x,y,c] * factor
+                # after all this, we return the new image:
+    return new_im
 
 def adjust_contrast(image, factor, mid):
     # adjust the contrast by increasing the difference from the user-defined midpoint by factor amount
@@ -55,3 +65,6 @@ if __name__ == '__main__':
     lake = Image(filename='lake.png')
     city = Image(filename='city.png')
 
+    # what if we want to make changes to specific parts of the image?
+    brightened_im = adjust_brightness(lake,1.7)
+    brightened_im.write_image("brightened.png")
