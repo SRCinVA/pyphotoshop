@@ -66,5 +66,9 @@ if __name__ == '__main__':
     city = Image(filename='city.png')
 
     # what if we want to make changes to specific parts of the image?
-    brightened_im = adjust_brightness(lake,1.7)
-    brightened_im.write_image("brightened.png")
+    # brightened_im = adjust_brightness(lake,1.7)
+    # brightened_im.write_image("brightened.png")
+
+    # or you could darken it:
+    darkened_im = adjust_brightness(lake, 0.3)
+    darkened_im.write_image('darkened.jpg')
