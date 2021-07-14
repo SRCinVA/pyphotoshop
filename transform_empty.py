@@ -28,18 +28,28 @@ def brighten(image, factor):
         # to be perfectly clear--now we just mutate the new image, not the old one. 
 
     # here's the non-vectorized way to do this: a 3D for-loop each pixel at its x, its y, and its color:
-    for x in range(x_pixels):
-        for y in range (y_pixels):
-            for c in range(num_channels):
+    # for x in range(x_pixels):
+    #   for y in range (y_pixels):
+    #      for c in range(num_channels):
                 # at index x,y,c in the image new array, we're going to "mirror" the first image, times "factor"
                 # to adjust for brightness:
                 new_im.array[x,y,c] = image.array[x,y,c] * factor
                 # after all this, we return the new image:
+
+    # vectorized version (in which you WON'T have to iterate through a for loop of every pixel)
+    new_im.array = image.array * factor
     return new_im
 
-def adjust_contrast(image, factor, mid):
+def adjust_contrast(image, factor, mid=0.5): # in practice, this makes the difference from a user-define midpoint greater.
     # adjust the contrast by increasing the difference from the user-defined midpoint by factor amount
-    pass
+    # to put new values in without modifying the image (the reasoning is a bit confusing here)
+    x_pixels, y_pixels, num_channels = image.array.shape 
+    new_im = Image(x_pixels=x_pixels,y_pixels=y_pixels,num_channels=num_channels)
+
+    for x in range(x_pixels):
+       for y in range (y_pixels):
+          for c in range(num_channels):
+              new_im.array[x,y,c] = 
 
 def blur(image, kernel_size):
     # kernel size is the number of pixels to take into account when applying the blur
