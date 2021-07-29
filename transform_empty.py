@@ -47,9 +47,16 @@ def adjust_contrast(image, factor, mid=0.5): # in practice, this makes the diffe
     new_im = Image(x_pixels=x_pixels,y_pixels=y_pixels,num_channels=num_channels)
 
     for x in range(x_pixels):
-       for y in range (y_pixels):
-          for c in range(num_channels):
-              new_im.array[x,y,c] = 
+        for y in range(y_pixels):
+            for c in range(num_channels):
+                new_im.array[x,y,c] = (image.array[x,y,c] - mid) * factor + mid
+                # basically from an arbitary midpoint, you're making points lighter or darker
+                # the midpoint creates a distance and the factor just makes it bigger (maybe?)
+                # don't understand why you add the midpoint back in (??)
+    return new_im
+
+    # the vectorized version would look like this:
+    # new_im.array = (image.array - mid) * factor + mid
 
 def blur(image, kernel_size):
     # kernel size is the number of pixels to take into account when applying the blur
