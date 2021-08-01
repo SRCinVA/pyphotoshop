@@ -37,7 +37,7 @@ def brighten(image, factor):
                 # after all this, we return the new image:
 
     # vectorized version (in which you WON'T have to iterate through a for loop of every pixel)
-    new_im.array = image.array * factor
+    # new_im.array = image.array * factor
     return new_im
 
 def adjust_contrast(image, factor, mid=0.5): # in practice, this makes the difference from a user-define midpoint greater.
@@ -62,6 +62,13 @@ def blur(image, kernel_size):
     # kernel size is the number of pixels to take into account when applying the blur
     # (ie kernel_size = 3 would be neighbors to the left/right, top/bottom, and diagonals)
     # kernel size should always be an *odd* number
+    x_pixels, y_pixels, num_channels = image.array.shape 
+    new_im = Image(x_pixels=x_pixels,y_pixels=y_pixels,num_channels=num_channels)
+
+    for x in range(x_pixels):
+        for y in range(y_pixels):
+            for c in range(num_channels):
+                # we'll iterate through each neighboring pixel and then average them.
     pass
 
 def apply_kernel(image, kernel):
@@ -87,5 +94,13 @@ if __name__ == '__main__':
     # brightened_im.write_image("brightened.png")
 
     # or you could darken it:
-    darkened_im = adjust_brightness(lake, 0.3)
-    darkened_im.write_image('darkened.jpg')
+    # darkened_im = adjust_brightness(lake, 0.3)
+    # darkened_im.write_image('darkened.jpg')
+
+    # increase the contrast for the lake
+    # incr_contrast = adjust_contrast(lake, 2, 0.5)
+    # incr_contrast.write_image('increased_contrast.png')
+
+    # decrease the contrast for the lake
+    # decr_contrast = adjust_contrast(lake, 0.5, 0.5)
+    # decr_contrast.write_image('decreased_contrast.png')
