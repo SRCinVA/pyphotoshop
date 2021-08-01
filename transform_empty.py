@@ -65,11 +65,18 @@ def blur(image, kernel_size):
     x_pixels, y_pixels, num_channels = image.array.shape 
     new_im = Image(x_pixels=x_pixels,y_pixels=y_pixels,num_channels=num_channels)
 
+    # how many neighbors to one side we need to look at through this process?
+    neighbor_range = kernel_size // 2
+
     for x in range(x_pixels):
         for y in range(y_pixels):
             for c in range(num_channels):
                 # we'll iterate through each neighboring pixel and then average them.
-    pass
+                # 15 would be the pixel and then the other 7 on either side.
+            total = 0  # to keep track of the sum of the surrounding pixels.
+            # puzzling ... why are we doing this one?
+            for x_i in range(x-neighbor_range, x+neighbor_range + 1) # + 1 because of Python's range syntax
+
 
 def apply_kernel(image, kernel):
     # the kernel should be a 2D array that represents the kernel we'll use!
