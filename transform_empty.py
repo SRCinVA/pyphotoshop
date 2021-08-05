@@ -74,8 +74,16 @@ def blur(image, kernel_size):
                 # we'll iterate through each neighboring pixel and then average them.
                 # 15 would be the pixel and then the other 7 on either side.
             total = 0  # to keep track of the sum of the surrounding pixels.
-            # puzzling ... why are we doing this one?
-            for x_i in range(x-neighbor_range, x+neighbor_range + 1) # + 1 because of Python's range syntax
+            # so we hit every relevant pixel in x's neighborhood
+            for x_i in range(max(0,x-neighbor_range), min(x-pixels-1,x+neighbor_range) + 1) 
+            # + 1 because of Python's range syntax (the + 1 catches the last number)
+            # notice the bonds checking: "take the max of x-neighbor_range, or take 0"
+            # (i.e., "if x-neighbor_range is negative, just cut it off at 0") 
+            # also, note that x-pixels-1 is the highest possible value it could be indexed into, so it's the upper limit. 
+            # now we do the exact same for the other two levels
+                for y_i in range(max(0,y-neighbor_range), min(y-pixels-1,y+neighbor_range) + 1) 
+                    for y_i in range(max(0,y-neighbor_range), min(y-pixels-1,y+neighbor_range) + 1)
+pick up here-->
 
 
 def apply_kernel(image, kernel):
