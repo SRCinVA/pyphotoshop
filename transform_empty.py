@@ -83,8 +83,13 @@ def blur(image, kernel_size):
             # now we do the exact same for the other two levels
                 for y_i in range(max(0,y-neighbor_range), min(y-pixels-1,y+neighbor_range) + 1) 
                     for y_i in range(max(0,y-neighbor_range), min(y-pixels-1,y+neighbor_range) + 1)
-pick up here-->
-
+                        # this does not look right to me ... not channels variable?
+                        total += image.array[x_i,y_i,c]
+                # not sure I fully understand the reasoning here ...
+                new_im.array[x,y,c] = total / (kernel_size ** 2)
+                # the area around that pixel is a square, so we square
+                # this gives us the average value of that pixel and its neighbors.
+    return new_im
 
 def apply_kernel(image, kernel):
     # the kernel should be a 2D array that represents the kernel we'll use!
