@@ -98,7 +98,19 @@ def apply_kernel(image, kernel):
     # [1 0 -1]
     # [2 0 -2]
     # [1 0 -1]
-    pass
+    # instruction did not offer a clear explantion of why we are doing this ...
+    # " ... to take in any kernel and apply it to our image"
+    x_pixels, y_pixels, num_channels = image.array.shape 
+    new_im = Image(x_pixels=x_pixels,y_pixels=y_pixels,num_channels=num_channels)
+
+    kernel_size = kernel.shape[0]  # this will be one dimension of (it seems) a 2-d Numpy array. 
+    neighbor_range = kernel_size // 2
+
+    for x in range(x_pixels):
+        for y in range(y_pixels):
+            for c in range(num_channels):
+                total = 0     
+--> pick up here          
 
 def combine_images(image1, image2):
     # let's combine two images using the squared sum of squares: value = sqrt(value_1**2, value_2**2)
@@ -124,3 +136,13 @@ if __name__ == '__main__':
     # decrease the contrast for the lake
     # decr_contrast = adjust_contrast(lake, 0.5, 0.5)
     # decr_contrast.write_image('decreased_contrast.png')
+
+    # blur with kernel 3
+    blur_3 = blur(city, 3)
+    blur_3.write_image('blur_k3.png')
+
+    # blur with kernel 15
+    blur_15 = blur(city, 15)
+    blur_15.write_image('blur_k15.png')
+    # by taking more pixels into account (increasing the number of pixels in the average),
+    # we create a far more blurred image (difference between 3 qand 15 is large)
