@@ -103,14 +103,20 @@ def apply_kernel(image, kernel):
     x_pixels, y_pixels, num_channels = image.array.shape 
     new_im = Image(x_pixels=x_pixels,y_pixels=y_pixels,num_channels=num_channels)
 
-    kernel_size = kernel.shape[0]  # this will be one dimension of (it seems) a 2-d Numpy array. 
+    kernel_size = kernel.shape[0]  # this will be one dimension of (it seems) a 2-d Numpy array (that's why it's 0 index)
     neighbor_range = kernel_size // 2
 
     for x in range(x_pixels):
         for y in range(y_pixels):
             for c in range(num_channels):
                 total = 0     
---> pick up here          
+                for y_i in range(max(0,y-neighbor_range), min(y-pixels-1,y+neighbor_range) + 1) 
+                    for y_i in range(max(0,y-neighbor_range), min(y-pixels-1,y+neighbor_range) + 1)
+                    # "we need to find which value of the kernel this corresponds to" ... I hope explanation is forthcoming ... !!
+                    x_k = x_1 + neighbor_range - x
+                    y_k = y_i + neighbor_range - y
+                    kernel_val = kernel[x_k, y_k]
+                    total += image.array[x_1, y_i, c] * kernel_val
 
 def combine_images(image1, image2):
     # let's combine two images using the squared sum of squares: value = sqrt(value_1**2, value_2**2)
