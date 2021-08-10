@@ -117,6 +117,9 @@ def apply_kernel(image, kernel):
                     y_k = y_i + neighbor_range - y
                     kernel_val = kernel[x_k, y_k]
                     total += image.array[x_1, y_i, c] * kernel_val
+            new_im.array[x,y,c] = total
+    return new_im
+
 
 def combine_images(image1, image2):
     # let's combine two images using the squared sum of squares: value = sqrt(value_1**2, value_2**2)
@@ -144,11 +147,15 @@ if __name__ == '__main__':
     # decr_contrast.write_image('decreased_contrast.png')
 
     # blur with kernel 3
-    blur_3 = blur(city, 3)
-    blur_3.write_image('blur_k3.png')
+    # blur_3 = blur(city, 3)
+    # blur_3.write_image('blur_k3.png')
 
     # blur with kernel 15
-    blur_15 = blur(city, 15)
-    blur_15.write_image('blur_k15.png')
+    # blur_15 = blur(city, 15)
+    # blur_15.write_image('blur_k15.png')
     # by taking more pixels into account (increasing the number of pixels in the average),
     # we create a far more blurred image (difference between 3 qand 15 is large)
+
+    #let's apply a sobel edge detection kernel
+    sobel_x_kernel = np.array([[1,2,1], [0,0,0], [-1,-2,-1]])
+    sobel_y_kernel = np.array([[1,0,-1], [2,0,-2], [1,0,-1]])
