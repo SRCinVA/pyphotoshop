@@ -120,11 +120,18 @@ def apply_kernel(image, kernel):
             new_im.array[x,y,c] = total
     return new_im
 
-
 def combine_images(image1, image2):
     # let's combine two images using the squared sum of squares: value = sqrt(value_1**2, value_2**2)
     # size of image1 and image2 MUST be the same
-    pass
+    
+    x_pixels, y_pixels, num_channels = image.array.shape 
+    new_im = Image(x_pixels=x_pixels,y_pixels=y_pixels,num_channels=num_channels)
+
+    for x in range(x_pixels):
+        for y in range(y_pixels):
+            for c in range(num_channels):
+                new_im.array[x,y,c] = (image1.array[x,y,c] ** 2 + image2.array[x,y,c] ** 2) ** 0.5        
+    # The math she's doing is simple but she offers no explanation ...!!
     
 if __name__ == '__main__':
     lake = Image(filename='lake.png')
@@ -157,5 +164,18 @@ if __name__ == '__main__':
     # we create a far more blurred image (difference between 3 qand 15 is large)
 
     #let's apply a sobel edge detection kernel
-    sobel_x_kernel = np.array([[1,2,1], [0,0,0], [-1,-2,-1]])
-    sobel_y_kernel = np.array([[1,0,-1], [2,0,-2], [1,0,-1]])
+    #sobel_x_kernel = np.array([
+    #    [1,2,1], 
+    #    [0,0,0], 
+    #    [-1,-2,-1]
+    #])
+    #sobel_y_kernel = np.array([
+    #    [1,0,-1], 
+    #    [2,0,-2], 
+    #    [1,0,-1]
+    #])
+
+    # sobel_x = apply_kernel(city, sobel_x_kernel)
+    # sobel_x.write_image('edge_x.png')
+    # sobel_y = apply_kernel(city, sobel_y_kernel)
+    # sobel_y.write_image('edge_y.png')
