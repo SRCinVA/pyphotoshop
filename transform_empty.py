@@ -124,7 +124,7 @@ def combine_images(image1, image2):
     # let's combine two images using the squared sum of squares: value = sqrt(value_1**2, value_2**2)
     # size of image1 and image2 MUST be the same
     
-    x_pixels, y_pixels, num_channels = image.array.shape 
+    x_pixels, y_pixels, num_channels = image1.array.shape 
     new_im = Image(x_pixels=x_pixels,y_pixels=y_pixels,num_channels=num_channels)
 
     for x in range(x_pixels):
@@ -133,6 +133,8 @@ def combine_images(image1, image2):
                 new_im.array[x,y,c] = (image1.array[x,y,c] ** 2 + image2.array[x,y,c] ** 2) ** 0.5        
     # The math she's doing is simple but she offers no explanation ...!!
     
+    return new_im
+
 if __name__ == '__main__':
     lake = Image(filename='lake.png')
     city = Image(filename='city.png')
@@ -179,3 +181,6 @@ if __name__ == '__main__':
     # sobel_x.write_image('edge_x.png')
     # sobel_y = apply_kernel(city, sobel_y_kernel)
     # sobel_y.write_image('edge_y.png')
+
+    # sobel_xy = combined images(sobel_x, sobel_y)
+    # spbel_xy.write_image('edge_xy.png')
